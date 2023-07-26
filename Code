@@ -1,0 +1,30 @@
+import requests as requests
+import pickle
+
+print("Getting the Data:\n")
+r = requests.get("https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data")
+print(r.text)
+
+print("Now we are going to parse it: ")
+f = open("Iris.txt", "r")                               # Open the Iris.txt file
+list_of_lists = []                                      # Declare an empty list of lists
+list_of_lists.append(f.readline())                      # To add first line in there
+for line in f:                                          # Go through the entire file, line by line
+    list_of_lists.append(f.readlines())                 # Keep appending each line to the list of lists
+print(list_of_lists)
+
+print("\nWriting the Binary File Pickle:\n")
+flowers = list_of_lists
+file = "iris.pkl"
+fileobj = open(file, "wb")
+pickle.dump(flowers, fileobj)
+fileobj.close()
+
+print("Reading the Binary File Pickle")
+file = "iris.pkl"
+fileobj = open(file, "rb")
+ye_hai_data = pickle.load(fileobj)
+print(ye_hai_data)
+print(type(ye_hai_data))
+
+f.close()
